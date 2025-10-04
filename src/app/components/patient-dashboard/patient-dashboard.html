@@ -1,0 +1,114 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+  <h2>Patient Dashboard</h2>
+  
+  <div *ngIf="message" [class]="'message message-' + messageType">
+    {{ message }}
+  </div>
+  
+  <div class="tabs">
+    <button 
+      [class.active]="activeTab === 'search'"
+      (click)="setTab('search')">
+      Search Doctors
+    </button>
+    <button 
+      [class.active]="activeTab === 'history'"
+      (click)="setTab('history')">
+      My History
+    </button>
+  </div>
+  
+  <!-- Search Tab -->
+  <div *ngIf="activeTab === 'search'" class="tab-content">
+    <div class="card">
+      <h3>Search for Doctors</h3>
+      
+      <form (ngSubmit)="searchDoctors()">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Specialization</label>
+            <input 
+              type="text" 
+              [(ngModel)]="searchForm.specialization" 
+              name="specialization"
+              placeholder="e.g., Cardio">
+          </div>
+          
+          <div class="form-group">
+            <label>Hospital</label>
+            <input 
+              type="text" 
+              [(ngModel)]="searchForm.hospital" 
+              name="hospital"
+              placeholder="e.g., XYZ Hospital">
+          </div>
+          
+          <div class="form-group">
+            <label>Date</label>
+            <input 
+              type="date" 
+              [(ngModel)]="searchForm.date" 
+              name="date"
+              required>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </div>
+    
+    <!-- Search Results -->
+    <div *ngIf="doctors.length > 0" class="results">
+      <h3>Available Doctors</h3>
+      <div class="doctor-grid">
+        <div *ngFor="let doctor of doctors" class="doctor-card">
+          <h4>{{ doctor.name }}</h4>
+          <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+          <p><strong>Hospital:</strong> {{ doctor.hospital }}</p>
+          
+          <div class="slots">
+            <strong>Available Slots:</strong>
+            <div class="slot-buttons">
+              <button 
+                *ngFor="let slot of doctor.availability"
+                class="btn btn-slot"
+                (click)="bookAppointment(doctor, slot)">
+                {{ slot }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- History Tab -->
+  <div *ngIf="activeTab === 'history'" class="tab-content">
+    <div class="card">
+      <h3>Appointment History</h3>
+      
+      <div *ngIf="history.length === 0" class="empty-state">
+        No appointment history found.
+      </div>
+      
+      <div *ngIf="history.length > 0" class="history-list">
+        <div *ngFor="let item of history" class="history-item">
+          <div class="history-info">
+            <h4>Dr. {{ item.doctor }}</h4>
+            <p><strong>Diagnosis:</strong> {{ item.diagnosis || 'Pending' }}</p>
+            <p *ngIf="item.prescriptions && item.prescriptions.length > 0">
+              <strong>Prescriptions:</strong> {{ item.prescriptions.join(', ') }}
+            </p>
+          </div>
+          <button 
+            class="btn btn-danger"
+            (click)="cancelAppointment(item.appointmentId)">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

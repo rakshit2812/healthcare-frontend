@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+  <h2>Doctor Dashboard</h2>
+  
+  <div *ngIf="message" [class]="'message message-' + messageType">
+    {{ message }}
+  </div>
+  
+  <div class="tabs">
+    <button 
+      [class.active]="activeTab === 'appointments'"
+      (click)="setTab('appointments')">
+      Today's Appointments
+    </button>
+    <button 
+      [class.active]="activeTab === 'availability'"
+      (click)="setTab('availability')">
+      Set Availability
+    </button>
+  </div>
+  
+  <!-- Appointments Tab -->
+  <div *ngIf="activeTab === 'appointments'" class="tab-content">
+    <div class="card">
+      <h3>Today's Appointments</h3>
+      
+      <div *ngIf="appointments.length === 0" class="empty-state">
+        No appointments for today.
+      </div>
+      
+      <div *ngIf="appointments.length > 0" class="appointments-list">
+        <div *ngFor="let apt of appointments" class="appointment-item">
+          <div class="appointment-info">
+            <h4>{{ apt.patient }}</h4>
+            <p><strong>Time:</strong> {{ apt.time }}</p>
+          </div>
+          
+          <button 
+            class="btn btn-primary"
+            (click)="openPrescription(apt.appointmentId)">
+            Add Prescription
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Prescription Form -->
+    <div *ngIf="prescriptionForm.appointmentId" class="card">
+      <h3>Add Prescription</h3>
+      
+      <form (ngSubmit)="submitPrescription()">
+        <div class="form-group">
+          <label>Notes</label>
+          <textarea 
+            [(ngModel)]="prescriptionForm.notes" 
+            name="notes"
+            rows="4"
+            placeholder="Enter diagnosis notes"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Medicines (comma separated)</label>
+          <input 
+            type="text" 
+            [(ngModel)]="prescriptionForm.medicines" 
+            name="medicines"
+            placeholder="e.g., Paracetamol, Ibuprofen">
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            (click)="prescriptionForm.appointmentId = ''">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Availability Tab -->
+  <div *ngIf="activeTab === 'availability'" class="tab-content">
+    <div class="card">
+      <h3>Set Your Availability</h3>
+      
+      <form (ngSubmit)="submitAvailability()">
+        <div class="form-group">
+          <label>Date</label>
+          <input 
+            type="date" 
+            [(ngModel)]="availabilityForm.date" 
+            name="date"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label>Time Slots (comma separated, e.g., 09:00, 09:30, 10:00)</label>
+          <input 
+            type="text" 
+            [(ngModel)]="availabilityForm.slots" 
+            name="slots"
+            placeholder="e.g., 09:00, 09:30, 10:00"
+            required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Set Availability</button>
+      </form>
+    </div>
+  </div>
+</div>
