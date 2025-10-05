@@ -29,11 +29,14 @@
         <div class="form-row">
           <div class="form-group">
             <label>Specialization</label>
-            <input 
-              type="text" 
+            <select 
               [(ngModel)]="searchForm.specialization" 
-              name="specialization"
-              placeholder="e.g., Cardio">
+              name="specialization">
+              <option value="">All Specializations</option>
+              <option *ngFor="let dept of departments" [value]="dept.name">
+                {{ dept.name }}
+              </option>
+            </select>
           </div>
           
           <div class="form-group">
@@ -61,23 +64,64 @@
     
     <!-- Search Results -->
     <div *ngIf="doctors.length > 0" class="results">
-      <h3>Available Doctors</h3>
+      <h3>✨ Available Doctors</h3>
       <div class="doctor-grid">
         <div *ngFor="let doctor of doctors" class="doctor-card">
-          <h4>{{ doctor.name }}</h4>
-          <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
-          <p><strong>Hospital:</strong> {{ doctor.hospital }}</p>
+          <h4>{{ doctor.user.name }}</h4>
+          
+          <div class="doctor-info">
+            <div class="doctor-info-item">
+              <div class="doctor-info-icon">📧</div>
+              <div class="doctor-info-content">
+                <div class="doctor-info-label">Email</div>
+                <a [href]="'mailto:' + doctor.user.email" class="doctor-email doctor-info-value">
+                  {{ doctor.user.email }}
+                </a>
+              </div>
+            </div>
+            
+            <div class="doctor-info-item">
+              <div class="doctor-info-icon">🩺</div>
+              <div class="doctor-info-content">
+                <div class="doctor-info-label">Specialization</div>
+                <div class="doctor-info-value">{{ doctor.specialization }}</div>
+              </div>
+            </div>
+            
+            <div class="doctor-info-item">
+              <div class="doctor-info-icon">🏥</div>
+              <div class="doctor-info-content">
+                <div class="doctor-info-label">Hospital</div>
+                <div class="doctor-info-value">{{ doctor.hospital }}</div>
+              </div>
+            </div>
+            
+            <div class="doctor-info-item" *ngIf="doctor.fee">
+              <div class="doctor-info-icon">💰</div>
+              <div class="doctor-info-content">
+                <div class="doctor-info-label">Consultation Fee</div>
+                <div class="doctor-fee">₹{{ doctor.fee }}</div>
+              </div>
+            </div>
+          </div>
           
           <div class="slots">
-            <strong>Available Slots:</strong>
-            <div class="slot-buttons">
-              <button 
-                *ngFor="let slot of doctor.availability"
-                class="btn btn-slot"
-                (click)="bookAppointment(doctor, slot)">
-                {{ slot }}
-              </button>
+            <strong>📅 Available Slots:</strong>
+            <div *ngIf="getAvailableSlots(doctor).length > 0; else noSlots">
+              <div class="slot-buttons">
+                <button 
+                  *ngFor="let slot of getAvailableSlots(doctor)"
+                  class="btn btn-slot"
+                  (click)="bookAppointment(doctor, slot)">
+                  🕐 {{ slot }}
+                </button>
+              </div>
             </div>
+            <ng-template #noSlots>
+              <div class="no-slots">
+                ⚠️ No slots available for the selected date
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -86,28 +130,189 @@
   
   <!-- History Tab -->
   <div *ngIf="activeTab === 'history'" class="tab-content">
-    <div class="card">
-      <h3>Appointment History</h3>
-      
-      <div *ngIf="history.length === 0" class="empty-state">
-        No appointment history found.
+    <!-- Empty State -->
+    <div *ngIf="!historyData || (!historyData.appointments || historyData.appointments.length === 0) && (!historyData.profile || !historyData.profile.medicalHistory || historyData.profile.medicalHistory.length === 0) && (!historyData.prescriptions || historyData.prescriptions.length === 0)" class="card">
+      <div class="empty-state">
+        📋 No history found. Book your first appointment to get started!
       </div>
+    </div>
+    
+    <!-- Appointments Section -->
+    <div *ngIf="historyData && historyData.appointments && historyData.appointments.length > 0" class="history-section">
+      <h3 class="history-section-title">📅 Appointment History</h3>
       
-      <div *ngIf="history.length > 0" class="history-list">
-        <div *ngFor="let item of history" class="history-item">
-          <div class="history-info">
-            <h4>Dr. {{ item.doctor }}</h4>
-            <p><strong>Diagnosis:</strong> {{ item.diagnosis || 'Pending' }}</p>
-            <p *ngIf="item.prescriptions && item.prescriptions.length > 0">
-              <strong>Prescriptions:</strong> {{ item.prescriptions.join(', ') }}
-            </p>
+      <div class="appointment-history-grid">
+        <div *ngFor="let appointment of historyData.appointments" class="appointment-history-card">
+          <!-- Header with ID and Status -->
+          <div class="appointment-history-header">
+            <span class="appointment-history-id">ID: {{ appointment._id }}</span>
+            <span [class]="'appointment-history-status ' + appointment.status.toLowerCase()">
+              {{ appointment.status }}
+            </span>
           </div>
-          <button 
-            class="btn btn-danger"
-            (click)="cancelAppointment(item.appointmentId)">
-            Cancel
-          </button>
+          
+          <!-- Doctor Information -->
+          <div class="appointment-history-doctor">
+            <div class="appointment-history-doctor-icon">👨‍⚕️</div>
+            <div class="appointment-history-doctor-info">
+              <div class="appointment-history-doctor-label">Doctor</div>
+              <div class="appointment-history-doctor-name">Dr. {{ appointment.doctor.name }}</div>
+            </div>
+          </div>
+          
+          <!-- Date and Time -->
+          <div class="appointment-history-datetime">
+            <div class="appointment-history-datetime-item">
+              <div class="appointment-history-datetime-label">📅 Date</div>
+              <div class="appointment-history-datetime-value">
+                {{ appointment.datetime | date: 'MMM dd, yyyy' }}
+              </div>
+            </div>
+            <div class="appointment-history-datetime-item">
+              <div class="appointment-history-datetime-label">🕐 Time</div>
+              <div class="appointment-history-datetime-value">{{ appointment.slot }}</div>
+            </div>
+          </div>
+          
+          <!-- Actions -->
+          <div class="appointment-history-actions" *ngIf="appointment.status.toLowerCase() === 'booked'">
+            <button 
+              class="btn-cancel-appointment"
+              (click)="cancelAppointment(appointment._id)">
+              ❌ Cancel Appointment
+            </button>
+          </div>
         </div>
+      </div>
+    </div>
+    
+    <!-- Medical History Section -->
+    <div *ngIf="historyData && historyData.profile" class="medical-history-section">
+      <h4>📋 Medical History</h4>
+      <div *ngIf="!historyData.profile.medicalHistory || historyData.profile.medicalHistory.length === 0" class="medical-history-empty">
+        No medical history records found.
+      </div>
+      <div *ngIf="historyData.profile.medicalHistory && historyData.profile.medicalHistory.length > 0">
+        <div *ngFor="let record of historyData.profile.medicalHistory" class="medical-history-item">
+          {{ record }}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Prescriptions Section -->
+    <div *ngIf="historyData && historyData.prescriptions" class="prescriptions-section">
+      <h4>💊 Prescriptions</h4>
+      <div *ngIf="historyData.prescriptions.length === 0" class="prescriptions-empty">
+        No prescriptions found.
+      </div>
+      <div *ngIf="historyData.prescriptions.length > 0">
+        <div *ngFor="let prescription of historyData.prescriptions" class="prescription-item">
+          {{ prescription }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Confirmation Modal -->
+  <div *ngIf="showBookingModal" class="modal-overlay" (click)="closeBookingModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-wrapper">
+          <div class="modal-icon">📅</div>
+          <h3 class="modal-title">Confirm Booking</h3>
+        </div>
+        <button class="modal-close" (click)="closeBookingModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-info-grid">
+          <div class="modal-info-item">
+            <div class="modal-info-icon">👨‍⚕️</div>
+            <div class="modal-info-content">
+              <div class="modal-info-label">Doctor</div>
+              <div class="modal-info-value">{{ selectedDoctor?.user?.name }}</div>
+            </div>
+          </div>
+
+          <div class="modal-info-item">
+            <div class="modal-info-icon">🩺</div>
+            <div class="modal-info-content">
+              <div class="modal-info-label">Specialization</div>
+              <div class="modal-info-value">{{ selectedDoctor?.specialization }}</div>
+            </div>
+          </div>
+
+          <div class="modal-info-item">
+            <div class="modal-info-icon">🏥</div>
+            <div class="modal-info-content">
+              <div class="modal-info-label">Hospital</div>
+              <div class="modal-info-value">{{ selectedDoctor?.hospital }}</div>
+            </div>
+          </div>
+
+          <div class="modal-info-item">
+            <div class="modal-info-icon">📅</div>
+            <div class="modal-info-content">
+              <div class="modal-info-label">Date</div>
+              <div class="modal-info-value">{{ searchForm.date | date: 'MMM dd, yyyy' }}</div>
+            </div>
+          </div>
+
+          <div class="modal-info-item">
+            <div class="modal-info-icon">🕐</div>
+            <div class="modal-info-content">
+              <div class="modal-info-label">Time Slot</div>
+              <div class="modal-info-value">{{ selectedSlot }}</div>
+            </div>
+          </div>
+
+          <div class="modal-info-item" *ngIf="selectedDoctor?.fee">
+            <div class="modal-info-icon">💰</div>
+            <div class="modal-info-content">
+              <div class="modal-info-label">Consultation Fee</div>
+              <div class="modal-info-value">₹{{ selectedDoctor?.fee }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-confirm" (click)="confirmBooking()">
+          ✓ Confirm Booking
+        </button>
+        <button class="modal-btn modal-btn-secondary" (click)="closeBookingModal()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancellation Confirmation Modal -->
+  <div *ngIf="showCancelModal" class="modal-overlay" (click)="closeCancelModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-wrapper">
+          <div class="modal-icon cancel">❌</div>
+          <h3 class="modal-title">Cancel Appointment</h3>
+        </div>
+        <button class="modal-close" (click)="closeCancelModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-warning">
+          <p class="modal-warning-text">
+            Are you sure you want to cancel this appointment? This action cannot be undone.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-cancel-action" (click)="confirmCancellation()">
+          ✓ Yes, Cancel Appointment
+        </button>
+        <button class="modal-btn modal-btn-secondary" (click)="closeCancelModal()">
+          No, Keep It
+        </button>
       </div>
     </div>
   </div>

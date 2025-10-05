@@ -1,0 +1,170 @@
+<div class="bg-black min-h-screen">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-24 md:py-32 lg:py-40">
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-950/20 via-black to-emerald-950/10"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="space-y-8 lg:space-y-10">
+          <div class="inline-flex items-center px-5 py-2.5 rounded-full bg-emerald-950/50 border border-emerald-800/40 backdrop-blur-sm">
+            <span class="text-emerald-400 text-sm font-semibold tracking-wide">Healthcare made simple</span>
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
+            Connect with doctors <br />
+            <span class="bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
+              anytime, anywhere
+            </span>
+          </h1>
+          
+          <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-xl">
+            Book appointments, consult via video, and manage your healthcare journey all in one secure platform.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <a href="/onboarding" class="group inline-flex items-center justify-center px-8 py-4 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-all duration-300 shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:shadow-emerald-600/30 hover:scale-[1.02]">
+              Get Started
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="/doctors" class="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-emerald-800/50 bg-emerald-950/30 text-white font-semibold hover:bg-emerald-950/50 hover:border-emerald-700/60 transition-all duration-300 backdrop-blur-sm">
+              Find Doctors
+            </a>
+          </div>
+        </div>
+
+        <div class="relative h-[450px] lg:h-[550px] rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20 border border-emerald-900/20">
+          <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/40 via-transparent to-emerald-600/10 z-10"></div>
+          <img 
+            src="/assets/banner2.png" 
+            alt="Doctor consultation" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl z-20"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative elements -->
+    <div class="absolute top-1/4 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 left-0 w-80 h-80 bg-emerald-800/10 rounded-full blur-3xl"></div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="relative py-24 md:py-32 bg-gradient-to-b from-black via-gray-950 to-black">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 lg:mb-20 space-y-4">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+          How It Works
+        </h2>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          Our platform makes healthcare accessible with just a few clicks
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div *ngFor="let feature of features" 
+             class="group relative bg-gradient-to-b from-gray-900/90 to-gray-950/90 border border-emerald-900/30 rounded-2xl p-8 hover:border-emerald-700/50 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/20 backdrop-blur-sm overflow-hidden">
+          <!-- Card glow effect -->
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-600/0 via-emerald-600/0 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <div class="relative z-10">
+            <div class="bg-emerald-950/50 p-4 rounded-xl w-fit mb-6 group-hover:bg-emerald-900/40 transition-all duration-300 ring-1 ring-emerald-800/30 group-hover:ring-emerald-700/50 group-hover:scale-110">
+              <div class="text-emerald-400 h-6 w-6" [innerHTML]="getIconSvg(feature.icon)"></div>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-4 group-hover:text-emerald-50 transition-colors">
+              {{ feature.title }}
+            </h3>
+            <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
+              {{ feature.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="relative py-24 md:py-32 bg-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 lg:mb-20 space-y-6">
+        <div class="inline-flex items-center px-5 py-2 rounded-full bg-emerald-950/50 border border-emerald-800/40 backdrop-blur-sm">
+          <span class="text-emerald-400 text-sm font-semibold tracking-wide">Success Stories</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+          What Our Users Say
+        </h2>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          Hear from patients and doctors who use our platform
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div *ngFor="let testimonial of testimonials" 
+             class="group relative bg-gradient-to-br from-gray-900/80 to-gray-950/80 border border-gray-800/50 rounded-2xl p-8 hover:border-emerald-800/60 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/10 backdrop-blur-sm">
+          <!-- Quote decoration -->
+          <div class="absolute top-6 right-6 text-emerald-900/20 text-6xl font-serif leading-none">"</div>
+          
+          <div class="relative z-10 space-y-6">
+            <div class="flex items-center">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-900/40 to-emerald-950/40 border-2 border-emerald-800/30 flex items-center justify-center mr-4 group-hover:border-emerald-700/50 transition-colors">
+                <span class="text-emerald-400 font-bold text-lg">
+                  {{ testimonial.initials }}
+                </span>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-lg">
+                  {{ testimonial.name }}
+                </h4>
+                <p class="text-sm text-emerald-400/80 font-medium">
+                  {{ testimonial.role }}
+                </p>
+              </div>
+            </div>
+            <p class="text-gray-300 leading-relaxed text-base">
+              "{{ testimonial.quote }}"
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="relative py-24 md:py-32 bg-gradient-to-b from-black to-gray-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-emerald-900/30 via-emerald-950/20 to-black border border-emerald-800/30 p-10 md:p-14 lg:p-20 shadow-2xl">
+        <div class="max-w-3xl relative z-10 space-y-8">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight">
+            Ready to take control of your healthcare?
+          </h2>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+            Join thousands of users who have simplified their healthcare journey with our platform. Get started today and experience healthcare the way it should be.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-5 pt-4">
+            <a href="/sign-up" class="group inline-flex items-center justify-center px-8 py-4 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-all duration-300 shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:shadow-emerald-600/30 hover:scale-[1.02]">
+              Sign Up Now
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="/doctors" class="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-emerald-700/40 bg-emerald-950/30 text-white font-semibold hover:bg-emerald-950/50 hover:border-emerald-600/60 transition-all duration-300 backdrop-blur-sm">
+              Find Doctors
+            </a>
+          </div>
+        </div>
+
+        <!-- Enhanced decorative elements -->
+        <div class="absolute right-0 top-0 w-[400px] h-[400px] bg-emerald-600/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div class="absolute left-0 bottom-0 w-[300px] h-[300px] bg-emerald-800/20 rounded-full blur-3xl -ml-20 -mb-20"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.1),transparent_50%)]"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom spacing -->
+  <div class="h-16 md:h-20 bg-black"></div>
+</div>

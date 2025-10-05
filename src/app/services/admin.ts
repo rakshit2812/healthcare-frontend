@@ -10,6 +10,10 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
+  getDoctors(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/doctors`);
+  }
+
   addDoctor(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/add-doctor`, data);
   }
@@ -34,5 +38,22 @@ export class AdminService {
     return this.http.get(`${this.apiUrl}/reports/daily`, {
       params: { date }
     });
+  }
+
+  // Department management methods
+  getDepartments(): Observable<any> {
+    return this.http.get('https://healthcare-backend-cs3j.onrender.com/api/departments');
+  }
+
+  createDepartment(data: any): Observable<any> {
+    return this.http.post('https://healthcare-backend-cs3j.onrender.com/api/departments/create-department', data);
+  }
+
+  updateDepartment(id: string, data: any): Observable<any> {
+    return this.http.put(`https://healthcare-backend-cs3j.onrender.com/api/departments/update-department/${id}`, data);
+  }
+
+  deleteDepartment(id: string): Observable<any> {
+    return this.http.delete(`https://healthcare-backend-cs3j.onrender.com/api/departments/delete-department/${id}`);
   }
 }

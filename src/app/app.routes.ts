@@ -6,6 +6,7 @@ import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-d
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard';
 import { authGuard } from './guards/auth-guard';
 import { roleGuard } from './guards/role-guard';
+import { HomeComponent } from './components/home/home';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

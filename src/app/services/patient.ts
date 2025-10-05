@@ -27,4 +27,8 @@ export class PatientService {
   getHistory(): Observable<any> {
     return this.http.get(`${this.apiUrl}/history`);
   }
+
+  getDepartments(): Observable<any> {
+    return this.http.get('https://healthcare-backend-cs3j.onrender.com/api/departments');
+  }
 }

@@ -20,14 +20,35 @@ export class PatientDashboardComponent implements OnInit {
   
   doctors: any[] = [];
   history: any[] = [];
+  historyData: any = null;
+  departments: any[] = [];
   activeTab = 'search';
   message = '';
   messageType = '';
+  
+  // Modal states
+  showBookingModal = false;
+  showCancelModal = false;
+  selectedDoctor: any = null;
+  selectedSlot: string = '';
+  selectedAppointmentId: string = '';
 
   constructor(private patientService: PatientService) {}
 
   ngOnInit() {
     this.loadHistory();
+    this.loadDepartments();
+  }
+
+  loadDepartments() {
+    this.patientService.getDepartments().subscribe({
+      next: (data) => {
+        this.departments = data;
+      },
+      error: (err) => {
+        console.error('Error loading departments', err);
+      }
+    });
   }
 
   searchDoctors() {
@@ -49,30 +70,52 @@ export class PatientDashboardComponent implements OnInit {
     });
   }
 
-  bookAppointment(doctor: any, slot: string) {
+  openBookingModal(doctor: any, slot: string) {
+    this.selectedDoctor = doctor;
+    this.selectedSlot = slot;
+    this.showBookingModal = true;
+  }
+
+  closeBookingModal() {
+    this.showBookingModal = false;
+    this.selectedDoctor = null;
+    this.selectedSlot = '';
+  }
+
+  confirmBooking() {
+    if (!this.selectedDoctor || !this.selectedSlot) return;
+
     const bookingData = {
-      doctorId: doctor._id,
-      doctorProfileId: doctor._id,
+      doctorId: this.selectedDoctor._id,
+      doctorProfileId: this.selectedDoctor._id,
       date: this.searchForm.date,
-      slot: slot
+      slot: this.selectedSlot
     };
 
     this.patientService.bookAppointment(bookingData).subscribe({
       next: (response) => {
+        this.closeBookingModal();
         this.showMessage('Appointment booked successfully!', 'success');
         this.doctors = [];
         this.loadHistory();
       },
       error: (err) => {
+        this.closeBookingModal();
         this.showMessage('Failed to book appointment', 'error');
       }
     });
   }
 
+  // Keep old method for backward compatibility
+  bookAppointment(doctor: any, slot: string) {
+    this.openBookingModal(doctor, slot);
+  }
+
   loadHistory() {
     this.patientService.getHistory().subscribe({
       next: (data) => {
-        this.history = data;
+        this.historyData = data;
+        this.history = data; // Keep for backward compatibility
       },
       error: (err) => {
         console.error('Error loading history', err);
@@ -80,18 +123,35 @@ export class PatientDashboardComponent implements OnInit {
     });
   }
 
+  openCancelModal(appointmentId: string) {
+    this.selectedAppointmentId = appointmentId;
+    this.showCancelModal = true;
+  }
+
+  closeCancelModal() {
+    this.showCancelModal = false;
+    this.selectedAppointmentId = '';
+  }
+
+  confirmCancellation() {
+    if (!this.selectedAppointmentId) return;
+
+    this.patientService.cancelAppointment(this.selectedAppointmentId).subscribe({
+      next: (response) => {
+        this.closeCancelModal();
+        this.showMessage('Appointment cancelled successfully', 'success');
+        this.loadHistory();
+      },
+      error: (err) => {
+        this.closeCancelModal();
+        this.showMessage('Failed to cancel appointment', 'error');
+      }
+    });
+  }
+
+  // Keep old method for backward compatibility
   cancelAppointment(id: string) {
-    if (confirm('Are you sure you want to cancel this appointment?')) {
-      this.patientService.cancelAppointment(id).subscribe({
-        next: (response) => {
-          this.showMessage('Appointment cancelled', 'success');
-          this.loadHistory();
-        },
-        error: (err) => {
-          this.showMessage('Failed to cancel appointment', 'error');
-        }
-      });
-    }
+    this.openCancelModal(id);
   }
 
   showMessage(msg: string, type: string) {
@@ -107,5 +167,16 @@ export class PatientDashboardComponent implements OnInit {
     if (tab === 'history') {
       this.loadHistory();
     }
+  }
+
+  getAvailableSlots(doctor: any): string[] {
+    if (!doctor.availability || doctor.availability.length === 0) {
+      return [];
+    }
+    
+    // Find availability for the selected date
+    const dateAvailability = doctor.availability.find((avail: any) => avail.date === this.searchForm.date);
+    
+    return dateAvailability ? dateAvailability.slots : [];
   }
 }

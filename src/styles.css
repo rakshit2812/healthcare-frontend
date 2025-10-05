@@ -1,6 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+/* Tailwind CSS v4 Import */
 @import "tailwindcss";
 
+/* Custom global styles */
 * {
   margin: 0;
   padding: 0;
@@ -9,11 +10,328 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: #f5f5f5;
-  color: #333;
   line-height: 1.6;
 }
 
-* {
-  box-sizing: border-box;
+/* Ensure Tailwind utilities have priority */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   ADMIN & DASHBOARD CUSTOM ANIMATIONS
+   ============================================ */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Button Ripple Effect */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Enhanced Input Focus */
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), 0 0 20px rgba(102, 126, 234, 0.2) !important;
+  transform: translateY(-1px);
+}
+
+/* Icon Hover Animations */
+button:hover svg,
+a:hover svg {
+  transform: scale(1.1) rotate(5deg);
+  transition: transform 0.3s ease;
+}
+
+/* Card Hover Effect */
+.bg-white {
+  transition: all 0.3s ease;
+}
+
+.bg-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Table Row Hover */
+table tbody tr {
+  transition: all 0.3s ease;
+}
+
+table tbody tr:hover {
+  transform: scale(1.005);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: rgba(102, 126, 234, 0.02);
+}
+
+/* Modal Backdrop Blur */
+.fixed.inset-0.bg-black {
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Stats Cards Float Animation */
+.bg-gradient-to-br {
+  animation: float 6s ease-in-out infinite;
+}
+
+.bg-gradient-to-br:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.bg-gradient-to-br:nth-child(3) {
+  animation-delay: 1s;
+}
+
+/* Department Card Hover Glow */
+.bg-gradient-to-br.from-purple-50.to-pink-50,
+.bg-gradient-to-br.from-blue-50.to-indigo-100,
+.bg-gradient-to-br.from-green-50.to-emerald-100,
+.bg-gradient-to-br.from-red-50.to-rose-100 {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-gradient-to-br:hover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* Card Shine Effect on Hover */
+.rounded-2xl.shadow-xl,
+.rounded-xl.shadow-lg {
+  position: relative;
+  overflow: hidden;
+}
+
+.rounded-2xl.shadow-xl::after,
+.rounded-xl.shadow-lg::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.rounded-2xl.shadow-xl:hover::after,
+.rounded-xl.shadow-lg:hover::after {
+  left: 120%;
+}
+
+/* Icon Badge Rotation */
+.bg-gradient-to-r svg {
+  transition: transform 0.5s ease;
+}
+
+.bg-gradient-to-r:hover svg {
+  transform: rotate(360deg) scale(1.1);
+}
+
+/* Status Badge Pulse */
+span[class*="bg-green-100"],
+span[class*="bg-yellow-100"],
+span[class*="bg-red-100"] {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Submit Button Glow */
+button[type="submit"]::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  z-index: -1;
+  filter: blur(10px);
+  transition: opacity 0.3s ease;
+}
+
+button[type="submit"]:hover::after {
+  opacity: 0.7;
+}
+
+/* Enhanced Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* Grid Stagger Animation */
+.grid > * {
+  animation: fadeIn 0.6s ease;
+}
+
+.grid > *:nth-child(1) { animation-delay: 0.1s; }
+.grid > *:nth-child(2) { animation-delay: 0.2s; }
+.grid > *:nth-child(3) { animation-delay: 0.3s; }
+
+/* Header Animation */
+h1, h2, h3 {
+  animation: slideInRight 0.6s ease;
+}
+
+/* Placeholder Animation */
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder,
+select:focus::placeholder {
+  transform: translateX(5px);
+  opacity: 0.7;
+}
+
+/* Selection Styling */
+::selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: #333;
+}
+
+::-moz-selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: #333;
 }
