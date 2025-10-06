@@ -1245,3 +1245,494 @@ td {
   background: #d5d5d5;
   transform: translateY(-2px);
 }
+
+/* Medical History Grid */
+.medical-history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.medical-record-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  border: 2px solid rgba(102, 126, 234, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.medical-record-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.medical-record-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* Medical Record Header */
+.medical-record-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.medical-record-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.medical-record-date {
+  flex: 1;
+}
+
+.medical-record-date-label {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.medical-record-date-value {
+  font-size: 1.35rem;
+  color: #333;
+  font-weight: 700;
+}
+
+/* Medical Record Doctor */
+.medical-record-doctor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-radius: 14px;
+  border-left: 4px solid #667eea;
+}
+
+.medical-record-info-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.medical-record-info-content {
+  flex: 1;
+}
+
+.medical-record-info-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.medical-record-info-value {
+  font-size: 1.15rem;
+  color: #333;
+  font-weight: 700;
+}
+
+/* Medical Record Sections */
+.medical-record-section {
+  margin-bottom: 1.5rem;
+}
+
+.medical-record-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.05rem;
+}
+
+.medical-record-section-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #667eea;
+  stroke-width: 2.5;
+  flex-shrink: 0;
+}
+
+.medical-record-notes {
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+  padding: 1.25rem;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Medicine Pills */
+.medicine-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.medicine-pill {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.medicine-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(245, 87, 108, 0.4);
+}
+
+/* Prescriptions Grid */
+.prescriptions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.prescription-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 20px;
+  padding: 2.25rem;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  border: 2px solid rgba(245, 87, 108, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.prescription-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+}
+
+.prescription-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(245, 87, 108, 0.25);
+  border-color: rgba(245, 87, 108, 0.3);
+}
+
+/* Prescription Header */
+.prescription-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.prescription-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  box-shadow: 0 8px 24px rgba(245, 87, 108, 0.35);
+  flex-shrink: 0;
+}
+
+.prescription-id-section {
+  flex: 1;
+}
+
+.prescription-id-label {
+  font-size: 0.7rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.prescription-id-value {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+/* Prescription Doctor Section */
+.prescription-doctor-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.prescription-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.prescription-info-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.prescription-info-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.prescription-info-label {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.prescription-info-value {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prescription-email {
+  color: #667eea;
+  font-size: 0.9rem;
+}
+
+/* Prescription Date Section */
+.prescription-date-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #f5576c;
+}
+
+.prescription-date-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.prescription-date-content {
+  flex: 1;
+}
+
+.prescription-date-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.prescription-date-value {
+  font-size: 1.15rem;
+  color: #333;
+  font-weight: 700;
+}
+
+/* Prescription Notes Section */
+.prescription-notes-section {
+  margin-bottom: 1.5rem;
+}
+
+.prescription-notes-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.05rem;
+}
+
+.prescription-notes-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #667eea;
+  stroke-width: 2.5;
+  flex-shrink: 0;
+}
+
+.prescription-notes-text {
+  background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+  padding: 1.25rem;
+  border-radius: 12px;
+  border-left: 4px solid #ffc107;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Prescription Medicines Section */
+.prescription-medicines-section {
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 2px solid rgba(245, 87, 108, 0.1);
+}
+
+.prescription-medicines-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  color: #333;
+  font-size: 1.05rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.prescription-medicines-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #f5576c;
+  stroke-width: 2.5;
+  flex-shrink: 0;
+}
+
+.prescription-medicines-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.prescription-medicine-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: white;
+  border-radius: 12px;
+  border-left: 4px solid #f5576c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.prescription-medicine-item:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.2);
+}
+
+.prescription-medicine-bullet {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 3px 10px rgba(245, 87, 108, 0.3);
+  flex-shrink: 0;
+}
+
+.prescription-medicine-name {
+  font-size: 1.05rem;
+  color: #333;
+  font-weight: 600;
+  flex: 1;
+}
+
+/* Responsive adjustments for new sections */
+@media (max-width: 768px) {
+  .medical-history-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .prescriptions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .prescription-doctor-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .medical-record-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .prescription-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

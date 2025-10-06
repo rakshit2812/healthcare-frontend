@@ -179,4 +179,24 @@ export class PatientDashboardComponent implements OnInit {
     
     return dateAvailability ? dateAvailability.slots : [];
   }
+
+  getDoctorName(doctorId: string): string {
+    // Try to find the doctor name from appointments
+    if (this.historyData && this.historyData.appointments) {
+      const appointment = this.historyData.appointments.find((apt: any) => apt.doctor._id === doctorId);
+      if (appointment && appointment.doctor) {
+        return appointment.doctor.name;
+      }
+    }
+    
+    // Try to find from prescriptions
+    if (this.historyData && this.historyData.prescriptions) {
+      const prescription = this.historyData.prescriptions.find((pres: any) => pres.doctor._id === doctorId);
+      if (prescription && prescription.doctor) {
+        return prescription.doctor.name;
+      }
+    }
+    
+    return 'Doctor';
+  }
 }
