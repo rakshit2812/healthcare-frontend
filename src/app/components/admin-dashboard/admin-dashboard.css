@@ -770,11 +770,388 @@
     color: #4a148c;
     font-weight: 700;
   }
-  
+
   .icon-small {
     width: 1rem;
     height: 1rem;
   }
+
+  /* Doctors Grid */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.doctor-card-admin {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  border: 2px solid rgba(94, 53, 177, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.doctor-card-admin::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #5e35b1 0%, #7e57c2 100%);
+}
+
+.doctor-card-admin:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(94, 53, 177, 0.2);
+  border-color: rgba(94, 53, 177, 0.3);
+}
+
+/* Doctor Card Header */
+.doctor-card-header-admin {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.doctor-avatar-admin {
+  width: 4rem;
+  height: 4rem;
+  background: linear-gradient(135deg, #5e35b1 0%, #7e57c2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(94, 53, 177, 0.3);
+  flex-shrink: 0;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.doctor-avatar-admin svg {
+  width: 2.25rem;
+  height: 2.25rem;
+  color: white;
+  stroke-width: 2;
+}
+
+.doctor-info-admin {
+  flex: 1;
+}
+
+.doctor-name-admin {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212121;
+  margin: 0 0 0.35rem 0;
+}
+
+.doctor-email-admin {
+  font-size: 0.95rem;
+  color: #757575;
+  margin: 0 0 0.5rem 0;
+}
+
+.doctor-quick-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.quick-info-item {
+  font-size: 0.85rem;
+  color: #9e9e9e;
+  font-weight: 500;
+}
+
+.quick-info-separator {
+  color: #e0e0e0;
+  font-weight: 700;
+}
+
+.doctor-actions-admin {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Expand Button */
+.btn-expand {
+  background: linear-gradient(135deg, #5e35b1 0%, #7e57c2 100%) !important;
+  color: white !important;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.btn-expand::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(135deg, #5e35b1 0%, #7e57c2 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-expand:hover {
+  background: linear-gradient(135deg, #4527a0 0%, #6a1b9a 100%) !important;
+  transform: scale(1.08);
+}
+
+.btn-expand:hover::after {
+  opacity: 1;
+}
+
+.expand-arrow {
+  transition: transform 0.3s ease;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.btn-expand.expanded {
+  background: linear-gradient(135deg, #4527a0 0%, #6a1b9a 100%) !important;
+}
+
+.btn-expand.expanded .expand-arrow {
+  transform: rotate(180deg);
+}
+
+/* Expandable Content */
+.doctor-expandable-content {
+  animation: expandDown 0.4s ease;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+@keyframes expandDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 2000px;
+    transform: translateY(0);
+  }
+}
+
+/* Doctor Details */
+.doctor-details-admin {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.doctor-detail-item-admin {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(94, 53, 177, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.doctor-detail-item-admin:hover {
+  background: rgba(94, 53, 177, 0.08);
+  transform: translateX(4px);
+}
+
+.detail-icon-admin {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, #5e35b1 0%, #7e57c2 100%);
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(94, 53, 177, 0.25);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.detail-icon-admin svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: white;
+  stroke-width: 2.5;
+}
+
+.detail-icon-admin.fee-icon {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.25);
+}
+
+.doctor-detail-item-admin:hover .detail-icon-admin {
+  transform: scale(1.05) rotate(-5deg);
+}
+
+.detail-label-admin {
+  font-size: 0.75rem;
+  color: #757575;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.detail-value-admin {
+  font-size: 1.05rem;
+  color: #212121;
+  font-weight: 600;
+}
+
+/* Availability Section */
+.availability-section-admin {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.availability-header-admin {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.availability-icon-admin {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #5e35b1;
+  stroke-width: 2.5;
+}
+
+.availability-header-admin strong {
+  color: #212121;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.availability-list-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.availability-date-card {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  border-radius: 14px;
+  padding: 1.25rem;
+  border: 2px solid rgba(156, 39, 176, 0.2);
+  transition: all 0.3s ease;
+}
+
+.availability-date-card:hover {
+  transform: translateX(6px);
+  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.15);
+}
+
+.availability-date-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(156, 39, 176, 0.2);
+}
+
+.date-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #6a1b9a;
+  flex-shrink: 0;
+}
+
+.availability-date-text {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4a148c;
+}
+
+.slots-count-badge {
+  background: linear-gradient(135deg, #9c27b0 0%, #ba68c8 100%);
+  color: white;
+  padding: 0.375rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(156, 39, 176, 0.3);
+}
+
+.availability-slots-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.slot-badge-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #6a1b9a;
+  padding: 0.65rem 1.1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 3px 10px rgba(156, 39, 176, 0.15);
+  border: 2px solid rgba(156, 39, 176, 0.2);
+  transition: all 0.3s ease;
+}
+
+.slot-badge-admin:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(156, 39, 176, 0.25);
+  background: linear-gradient(135deg, #9c27b0 0%, #ba68c8 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.slot-icon-admin {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 2.5;
+  transition: transform 0.3s ease;
+}
+
+.slot-badge-admin:hover .slot-icon-admin {
+  transform: rotate(180deg);
+}
+
+.no-availability-admin {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(94, 53, 177, 0.05);
+  border-radius: 12px;
+  border: 2px dashed rgba(94, 53, 177, 0.2);
+}
+
+.no-availability-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #9e9e9e;
+  margin: 0 auto 0.75rem;
+  stroke-width: 2;
+}
+
+.no-availability-admin p {
+  color: #757575;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
   @media (max-width: 768px) {
     .admin-container {
       padding: 2rem 1rem;
@@ -805,6 +1182,14 @@
     }
   
     .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .doctors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .appointment-grid {
       grid-template-columns: 1fr;
     }
   }

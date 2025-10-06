@@ -42,6 +42,7 @@ export class AdminDashboardComponent implements OnInit {
   showDoctorModal = false;
 
   reportDate = '';
+  expandedDoctors: Set<string> = new Set();
 
   constructor(private adminService: AdminService) {}
 
@@ -276,5 +277,17 @@ export class AdminDashboardComponent implements OnInit {
         }
       });
     }
+  }
+
+  toggleDoctorExpand(doctorId: string) {
+    if (this.expandedDoctors.has(doctorId)) {
+      this.expandedDoctors.delete(doctorId);
+    } else {
+      this.expandedDoctors.add(doctorId);
+    }
+  }
+
+  isDoctorExpanded(doctorId: string): boolean {
+    return this.expandedDoctors.has(doctorId);
   }
 }
