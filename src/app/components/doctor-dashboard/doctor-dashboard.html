@@ -1,9 +1,28 @@
 <app-navbar></app-navbar>
 
 <div class="dashboard-container">
-  <h2>Doctor Dashboard</h2>
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h2>Doctor Dashboard</h2>
+        <p class="header-subtitle">Manage appointments and provide prescriptions</p>
+      </div>
+    </div>
+  </div>
   
   <div *ngIf="message" [class]="'message message-' + messageType">
+    <svg class="message-icon" fill="currentColor" viewBox="0 0 20 20" *ngIf="messageType === 'success'">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+    </svg>
+    <svg class="message-icon" fill="currentColor" viewBox="0 0 20 20" *ngIf="messageType === 'error'">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+    </svg>
     {{ message }}
   </div>
   
@@ -11,11 +30,17 @@
     <button 
       [class.active]="activeTab === 'appointments'"
       (click)="setTab('appointments')">
+      <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
       Today's Appointments
     </button>
     <button 
       [class.active]="activeTab === 'availability'"
       (click)="setTab('availability')">
+      <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
       Set Availability
     </button>
   </div>
@@ -28,19 +53,28 @@
         [class.active]="appointmentSubTab === 'booked'"
         (click)="setAppointmentSubTab('booked')"
         class="subtab-btn">
-        📋 Booked <span class="badge">{{ getAppointmentCount('booked') }}</span>
+        <svg class="subtab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        Booked <span class="badge">{{ getAppointmentCount('booked') }}</span>
       </button>
       <button 
         [class.active]="appointmentSubTab === 'completed'"
         (click)="setAppointmentSubTab('completed')"
         class="subtab-btn">
-        ✅ Completed <span class="badge">{{ getAppointmentCount('completed') }}</span>
+        <svg class="subtab-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        Completed <span class="badge">{{ getAppointmentCount('completed') }}</span>
       </button>
       <button 
         [class.active]="appointmentSubTab === 'cancelled'"
         (click)="setAppointmentSubTab('cancelled')"
         class="subtab-btn">
-        ❌ Cancelled <span class="badge">{{ getAppointmentCount('cancelled') }}</span>
+        <svg class="subtab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+        Cancelled <span class="badge">{{ getAppointmentCount('cancelled') }}</span>
       </button>
     </div>
 
@@ -75,7 +109,11 @@
         <!-- Appointment Details -->
         <div class="appointment-details">
           <div class="appointment-detail-item">
-            <div class="appointment-detail-icon">📅</div>
+            <div class="appointment-detail-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
             <div class="appointment-detail-content">
               <div class="appointment-detail-label">Date</div>
               <div class="appointment-detail-value">{{ formatDate(apt.datetime) }}</div>
@@ -83,7 +121,11 @@
           </div>
           
           <div class="appointment-detail-item">
-            <div class="appointment-detail-icon">🕐</div>
+            <div class="appointment-detail-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
             <div class="appointment-detail-content">
               <div class="appointment-detail-label">Time</div>
               <div class="appointment-detail-value">{{ formatTime(apt.datetime) }}</div>
@@ -91,7 +133,11 @@
           </div>
           
           <div class="appointment-detail-item">
-            <div class="appointment-detail-icon">🆔</div>
+            <div class="appointment-detail-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/>
+              </svg>
+            </div>
             <div class="appointment-detail-content">
               <div class="appointment-detail-label">Appointment ID</div>
               <div class="appointment-detail-value">{{ apt._id }}</div>
@@ -104,11 +150,19 @@
           <button 
             class="btn btn-primary"
             (click)="openPrescriptionModal(apt)">
-            💊 Add Prescription
+            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+            </svg>
+            Add Prescription
           </button>
         </div>
         <div class="appointment-actions" *ngIf="apt.status === 'completed'">
-          <span style="color: #6a1b9a; font-weight: 600;">✓ Consultation Completed</span>
+          <div class="completed-badge">
+            <svg class="completed-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            Consultation Completed
+          </div>
         </div>
       </div>
     </div>
@@ -117,7 +171,17 @@
   <!-- Availability Tab -->
   <div *ngIf="activeTab === 'availability'" class="tab-content">
     <div class="card">
-      <h3>⏰ Set Your Availability</h3>
+      <div class="card-header-section">
+        <div class="card-header-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Set Your Availability</h3>
+          <p class="card-subtitle">Configure your available time slots</p>
+        </div>
+      </div>
       
       <form (ngSubmit)="submitAvailability()">
         <div class="form-group">
@@ -139,7 +203,12 @@
             required>
         </div>
         
-        <button type="submit" class="btn btn-primary">✓ Set Availability</button>
+        <button type="submit" class="btn btn-primary">
+          <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          Set Availability
+        </button>
       </form>
       
       <div class="availability-preview" *ngIf="availabilityForm.slots">
@@ -158,7 +227,11 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <div class="modal-title-wrapper">
-          <div class="modal-icon">💊</div>
+          <div class="modal-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+            </svg>
+          </div>
           <h3 class="modal-title">Add Prescription</h3>
         </div>
         <button class="modal-close" (click)="closePrescriptionModal()">×</button>
@@ -194,7 +267,10 @@
           
           <div class="modal-actions">
             <button type="submit" class="btn btn-primary">
-              ✓ Submit & Complete Appointment
+              <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Submit & Complete Appointment
             </button>
             <button 
               type="button" 
